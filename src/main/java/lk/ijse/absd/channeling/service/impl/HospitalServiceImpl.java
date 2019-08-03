@@ -29,7 +29,6 @@ public class HospitalServiceImpl implements HospitalService {
     public CommonResponse add(HospitalDTO hospitalDTO) {
         try {
             Hospital hospital = modelMapper.map(hospitalDTO, Hospital.class);
-            System.out.println(hospital.getHospitalId());
             hospital = hospitalRepository.save(hospital);
             hospitalDTO = modelMapper.map(hospital, HospitalDTO.class);
             return new CommonResponse<>(true, hospitalDTO);
