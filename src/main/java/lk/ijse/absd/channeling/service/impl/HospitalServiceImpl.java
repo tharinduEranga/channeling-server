@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Type;
 import java.util.List;
+import java.util.Optional;
 
 import static lk.ijse.absd.channeling.util.Constants.COMMONERRORMESSAGE;
 
@@ -54,10 +55,11 @@ public class HospitalServiceImpl implements HospitalService {
     @Override
     public CommonResponse search(Integer integer) {
         try {
-            Hospital hospital = hospitalRepository.getOne(integer);
-            if (hospital.getHospitalId() <= 0) {
+            Optional<Hospital> hospitalById = hospitalRepository.findById(integer);
+            if (!hospitalById.isPresent()) {
                 return new CommonResponse(false, "Hospital not found!");
             }
+            Hospital hospital = hospitalById.get();
             HospitalDTO hospitalDTO = modelMapper.map(hospital, HospitalDTO.class);
             return new CommonResponse<>(true, hospitalDTO);
         } catch (Exception e) {
@@ -69,10 +71,11 @@ public class HospitalServiceImpl implements HospitalService {
     @Override
     public CommonResponse delete(Integer integer) {
         try {
-            Hospital hospital = hospitalRepository.getOne(integer);
-            if (hospital.getHospitalId() <= 0) {
+            Optional<Hospital> hospitalById = hospitalRepository.findById(integer);
+            if (!hospitalById.isPresent()) {
                 return new CommonResponse(false, "Hospital not found!");
             }
+            Hospital hospital = hospitalById.get();
             hospitalRepository.delete(hospital);
             return new CommonResponse<>(true, "Hospital is deleted!");
         } catch (Exception e) {
