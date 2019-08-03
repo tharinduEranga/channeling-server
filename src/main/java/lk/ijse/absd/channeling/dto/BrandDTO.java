@@ -23,4 +23,11 @@ public class BrandDTO {
         this.name = name;
     }
 
+    @Override
+    public String toString() {
+        return "BrandDTO{" +
+                "brandId=" + brandId +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

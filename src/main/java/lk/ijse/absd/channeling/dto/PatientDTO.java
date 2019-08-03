@@ -50,5 +50,14 @@ public class PatientDTO {
         this.address = address;
     }
 
-
+    @Override
+    public String toString() {
+        return "PatientDTO{" +
+                "patientId=" + patientId +
+                ", name='" + name + '\'' +
+                ", age=" + age +
+                ", tel='" + tel + '\'' +
+                ", address='" + address + '\'' +
+                '}';
+    }
 }

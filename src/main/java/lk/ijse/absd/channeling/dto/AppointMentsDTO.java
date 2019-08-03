@@ -43,4 +43,13 @@ public class AppointMentsDTO {
         this.issue = issue;
     }
 
+    @Override
+    public String toString() {
+        return "AppointMentsDTO{" +
+                "appointmentId=" + appointmentId +
+                ", date=" + date +
+                ", token_no=" + token_no +
+                ", issue='" + issue + '\'' +
+                '}';
+    }
 }

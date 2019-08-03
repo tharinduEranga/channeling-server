@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Import;
 
 @Configuration
 @ComponentScan("lk.ijse.absd.channeling.service")
-@Import(JPAConfig.class)
+@Import({JPAConfig.class, LibConfig.class})
 public class WebRootConfig {
 
 }

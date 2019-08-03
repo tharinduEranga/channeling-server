@@ -1,35 +1,35 @@
 package lk.ijse.absd.channeling.service.impl;
 
 import lk.ijse.absd.channeling.dto.SpecialityDTO;
+import lk.ijse.absd.channeling.dto.util.CommonResponse;
 import lk.ijse.absd.channeling.service.SpecialityService;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public class SpecialityServiceImpl implements SpecialityService {
+
     @Override
-    public SpecialityDTO add(SpecialityDTO specialityDTO) {
+    public CommonResponse add(SpecialityDTO specialityDTO) {
         return null;
     }
 
     @Override
-    public SpecialityDTO update(SpecialityDTO specialityDTO) {
+    public CommonResponse update(SpecialityDTO specialityDTO) {
         return null;
     }
 
     @Override
-    public SpecialityDTO search(Integer integer) {
+    public CommonResponse search(Integer integer) {
         return null;
     }
 
     @Override
-    public boolean delete(Integer integer) {
-        return false;
+    public CommonResponse delete(Integer integer) {
+        return null;
     }
 
     @Override
-    public List<SpecialityDTO> getAll() {
+    public CommonResponse getAll() {
         return null;
     }
 }

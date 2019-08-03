@@ -24,5 +24,11 @@ public class SpecialityDTO {
         this.speciality = speciality;
     }
 
-
+    @Override
+    public String toString() {
+        return "SpecialityDTO{" +
+                "specialityId=" + specialityId +
+                ", speciality='" + speciality + '\'' +
+                '}';
+    }
 }

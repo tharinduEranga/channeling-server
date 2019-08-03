@@ -1,35 +1,35 @@
 package lk.ijse.absd.channeling.service.impl;
 
 import lk.ijse.absd.channeling.dto.PaymentsDTO;
+import lk.ijse.absd.channeling.dto.util.CommonResponse;
 import lk.ijse.absd.channeling.service.PaymentsService;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public class PaymentsServiceImpl implements PaymentsService {
+
     @Override
-    public PaymentsDTO add(PaymentsDTO paymentsDTO) {
+    public CommonResponse add(PaymentsDTO paymentsDTO) {
         return null;
     }
 
     @Override
-    public PaymentsDTO update(PaymentsDTO paymentsDTO) {
+    public CommonResponse update(PaymentsDTO paymentsDTO) {
         return null;
     }
 
     @Override
-    public PaymentsDTO search(Integer integer) {
+    public CommonResponse search(Integer integer) {
         return null;
     }
 
     @Override
-    public boolean delete(Integer integer) {
-        return false;
+    public CommonResponse delete(Integer integer) {
+        return null;
     }
 
     @Override
-    public List<PaymentsDTO> getAll() {
+    public CommonResponse getAll() {
         return null;
     }
 }

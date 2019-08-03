@@ -42,5 +42,13 @@ public class DoctorDTO {
         this.tel = tel;
     }
 
-
+    @Override
+    public String toString() {
+        return "DoctorDTO{" +
+                "doctorId=" + doctorId +
+                ", name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", tel='" + tel + '\'' +
+                '}';
+    }
 }

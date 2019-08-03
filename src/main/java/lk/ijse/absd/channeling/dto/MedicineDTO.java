@@ -41,5 +41,13 @@ public class MedicineDTO {
         this.qty = qty;
     }
 
-
+    @Override
+    public String toString() {
+        return "MedicineDTO{" +
+                "medicineId=" + medicineId +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", qty=" + qty +
+                '}';
+    }
 }

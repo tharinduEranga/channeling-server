@@ -23,4 +23,11 @@ public class DaysDTO {
         this.day = day;
     }
 
+    @Override
+    public String toString() {
+        return "DaysDTO{" +
+                "dayId=" + dayId +
+                ", day='" + day + '\'' +
+                '}';
+    }
 }

@@ -34,5 +34,12 @@ public class PaymentsDTO {
         this.amount = amount;
     }
 
-
+    @Override
+    public String toString() {
+        return "PaymentsDTO{" +
+                "paymentId=" + paymentId +
+                ", date=" + date +
+                ", amount=" + amount +
+                '}';
+    }
 }
