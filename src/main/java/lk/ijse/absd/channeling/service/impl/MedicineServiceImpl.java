@@ -5,31 +5,33 @@ import lk.ijse.absd.channeling.dto.util.CommonResponse;
 import lk.ijse.absd.channeling.service.MedicineService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class MedicineServiceImpl implements MedicineService {
 
     @Override
-    public CommonResponse add(MedicineDTO medicineDTO) {
+    public CommonResponse<MedicineDTO> add(MedicineDTO medicineDTO) {
         return null;
     }
 
     @Override
-    public CommonResponse update(MedicineDTO medicineDTO) {
+    public CommonResponse<MedicineDTO> update(MedicineDTO medicineDTO) {
         return null;
     }
 
     @Override
-    public CommonResponse search(Integer integer) {
+    public CommonResponse<MedicineDTO> search(Integer integer) {
         return null;
     }
 
     @Override
-    public CommonResponse delete(Integer integer) {
+    public CommonResponse<MedicineDTO> delete(Integer integer) {
         return null;
     }
 
     @Override
-    public CommonResponse getAll() {
+    public CommonResponse<List<MedicineDTO>> getAll() {
         return null;
     }
 }

@@ -13,11 +13,11 @@ public class Appointments {
     private String issue;
 
     @ManyToOne
-    @JoinColumn(name = "patientId", insertable = false, updatable = false)
+    @JoinColumn(name = "patientId")
     private Patient patient;
 
     @ManyToOne
-    @JoinColumn(name = "doctorId", insertable = false, updatable = false)
+    @JoinColumn(name = "doctorId")
     private Doctor doctor;
 
     public Appointments() {

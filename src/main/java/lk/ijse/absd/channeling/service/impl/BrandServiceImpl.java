@@ -26,7 +26,7 @@ public class BrandServiceImpl implements BrandService {
     private ModelMapper modelMapper;
 
     @Override
-    public CommonResponse add(BrandDTO brandDTO) {
+    public CommonResponse<BrandDTO> add(BrandDTO brandDTO) {
         try {
             Brand brand = modelMapper.map(brandDTO, Brand.class);
             brand = brandRepository.save(brand);
@@ -34,57 +34,57 @@ public class BrandServiceImpl implements BrandService {
             return new CommonResponse<>(true, brandDTO);
         } catch (Exception e) {
             e.printStackTrace();
-            return new CommonResponse(false, COMMONERRORMESSAGE + e.getMessage());
+            return new CommonResponse<>(false, COMMONERRORMESSAGE + e.getMessage());
         }
     }
 
     @Override
-    public CommonResponse update(BrandDTO brandDTO) {
+    public CommonResponse<BrandDTO> update(BrandDTO brandDTO) {
         try {
             if (!brandRepository.findById(brandDTO.getBrandId()).isPresent()) {
-                return new CommonResponse(false, "Brand not found!");
+                return new CommonResponse<>(false, "Brand not found!");
             }
             return add(brandDTO);
         } catch (Exception e) {
             e.printStackTrace();
-            return new CommonResponse(false, COMMONERRORMESSAGE + e.getMessage());
+            return new CommonResponse<>(false, COMMONERRORMESSAGE + e.getMessage());
         }
     }
 
     @Override
-    public CommonResponse search(Integer integer) {
+    public CommonResponse<BrandDTO> search(Integer integer) {
         try {
             Optional<Brand> brandById = brandRepository.findById(integer);
             if (!brandById.isPresent()) {
-                return new CommonResponse(false, "Brand not found!");
+                return new CommonResponse<>(false, "Brand not found!");
             }
             Brand brand = brandById.get();
             BrandDTO brandDTO = modelMapper.map(brand, BrandDTO.class);
             return new CommonResponse<>(true, brandDTO);
         } catch (Exception e) {
             e.printStackTrace();
-            return new CommonResponse(false, COMMONERRORMESSAGE + e.getMessage());
+            return new CommonResponse<>(false, COMMONERRORMESSAGE + e.getMessage());
         }
     }
 
     @Override
-    public CommonResponse delete(Integer integer) {
+    public CommonResponse<BrandDTO> delete(Integer integer) {
         try {
             Optional<Brand> brandById = brandRepository.findById(integer);
             if (!brandById.isPresent()) {
-                return new CommonResponse(false, "Brand not found!");
+                return new CommonResponse<>(false, "Brand not found!");
             }
             Brand brand = brandById.get();
             brandRepository.delete(brand);
             return new CommonResponse<>(true, "Brand is deleted!");
         } catch (Exception e) {
             e.printStackTrace();
-            return new CommonResponse(false, COMMONERRORMESSAGE + e.getMessage());
+            return new CommonResponse<>(false, COMMONERRORMESSAGE + e.getMessage());
         }
     }
 
     @Override
-    public CommonResponse getAll() {
+    public CommonResponse<List<BrandDTO>> getAll() {
         try {
             List<Brand> brandList = brandRepository.findAll();
             Type targetType = new TypeToken<List<BrandDTO>>() {
@@ -93,7 +93,7 @@ public class BrandServiceImpl implements BrandService {
             return new CommonResponse<>(true, brandDTOS);
         } catch (Exception e) {
             e.printStackTrace();
-            return new CommonResponse(false, COMMONERRORMESSAGE + e.getMessage());
+            return new CommonResponse<>(false, COMMONERRORMESSAGE + e.getMessage());
         }
     }
 }

@@ -5,31 +5,33 @@ import lk.ijse.absd.channeling.dto.util.CommonResponse;
 import lk.ijse.absd.channeling.service.AppointmentsService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class AppointmentsServiceImpl implements AppointmentsService {
 
     @Override
-    public CommonResponse add(AppointMentsDTO appointMentsDTO) {
+    public CommonResponse<AppointMentsDTO> add(AppointMentsDTO appointMentsDTO) {
         return null;
     }
 
     @Override
-    public CommonResponse update(AppointMentsDTO appointMentsDTO) {
+    public CommonResponse<AppointMentsDTO> update(AppointMentsDTO appointMentsDTO) {
         return null;
     }
 
     @Override
-    public CommonResponse search(Integer integer) {
+    public CommonResponse<AppointMentsDTO> search(Integer integer) {
         return null;
     }
 
     @Override
-    public CommonResponse delete(Integer integer) {
+    public CommonResponse<AppointMentsDTO> delete(Integer integer) {
         return null;
     }
 
     @Override
-    public CommonResponse getAll() {
+    public CommonResponse<List<AppointMentsDTO>> getAll() {
         return null;
     }
 }

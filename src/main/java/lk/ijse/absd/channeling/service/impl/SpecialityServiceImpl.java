@@ -26,7 +26,7 @@ public class SpecialityServiceImpl implements SpecialityService {
     private ModelMapper modelMapper;
     
     @Override
-    public CommonResponse add(SpecialityDTO specialityDTO) {
+    public CommonResponse<SpecialityDTO> add(SpecialityDTO specialityDTO) {
         try {
             Speciality speciality = modelMapper.map(specialityDTO, Speciality.class);
             speciality = specialityRepository.save(speciality);
@@ -34,58 +34,58 @@ public class SpecialityServiceImpl implements SpecialityService {
             return new CommonResponse<>(true, specialityDTO);
         } catch (Exception e) {
             e.printStackTrace();
-            return new CommonResponse(false, COMMONERRORMESSAGE + e.getMessage());
+            return new CommonResponse<>(false, COMMONERRORMESSAGE + e.getMessage());
         }
     }
 
     @Override
-    public CommonResponse update(SpecialityDTO specialityDTO) {
+    public CommonResponse<SpecialityDTO> update(SpecialityDTO specialityDTO) {
         try {
             if (!specialityRepository.findById(specialityDTO.getSpecialityId()).isPresent()) {
-                return new CommonResponse(false, "Speciality not found!");
+                return new CommonResponse<>(false, "Speciality not found!");
             }
             return add(specialityDTO);
         } catch (Exception e) {
             e.printStackTrace();
-            return new CommonResponse(false, COMMONERRORMESSAGE + e.getMessage());
+            return new CommonResponse<>(false, COMMONERRORMESSAGE + e.getMessage());
         }
     }
 
     @Override
-    public CommonResponse search(Integer integer) {
+    public CommonResponse<SpecialityDTO> search(Integer integer) {
         try {
             Optional<Speciality> specialityById = specialityRepository.findById(integer);
             if (!specialityById.isPresent()) {
-                return new CommonResponse(false, "Speciality not found!");
+                return new CommonResponse<>(false, "Speciality not found!");
             }
             Speciality speciality = specialityById.get();
             SpecialityDTO specialityDTO = modelMapper.map(speciality, SpecialityDTO.class);
             return new CommonResponse<>(true, specialityDTO);
         } catch (Exception e) {
             e.printStackTrace();
-            return new CommonResponse(false, COMMONERRORMESSAGE + e.getMessage());
+            return new CommonResponse<>(false, COMMONERRORMESSAGE + e.getMessage());
         }
     }
 
     @Override
-    public CommonResponse delete(Integer integer) {
+    public CommonResponse<SpecialityDTO> delete(Integer integer) {
 
         try {
             Optional<Speciality> specialityById = specialityRepository.findById(integer);
             if (!specialityById.isPresent()) {
-                return new CommonResponse(false, "Speciality not found!");
+                return new CommonResponse<>(false, "Speciality not found!");
             }
             Speciality speciality = specialityById.get();
             specialityRepository.delete(speciality);
             return new CommonResponse<>(true, "Speciality is deleted!");
         } catch (Exception e) {
             e.printStackTrace();
-            return new CommonResponse(false, COMMONERRORMESSAGE + e.getMessage());
+            return new CommonResponse<>(false, COMMONERRORMESSAGE + e.getMessage());
         }
     }
 
     @Override
-    public CommonResponse getAll() {
+    public CommonResponse<List<SpecialityDTO>> getAll() {
         try {
             List<Speciality> specialityList = specialityRepository.findAll();
             Type targetType = new TypeToken<List<SpecialityDTO>>() {
@@ -94,7 +94,7 @@ public class SpecialityServiceImpl implements SpecialityService {
             return new CommonResponse<>(true, specialityDTOS);
         } catch (Exception e) {
             e.printStackTrace();
-            return new CommonResponse(false, COMMONERRORMESSAGE + e.getMessage());
+            return new CommonResponse<>(false, COMMONERRORMESSAGE + e.getMessage());
         }
     }
 }

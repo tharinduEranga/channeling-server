@@ -2,7 +2,7 @@ package lk.ijse.absd.channeling.dto;
 
 public class MedicineDTO {
     private int medicineId;
-    private String name;
+    private String medicineName;
     private double price;
     private double qty;
 
@@ -17,12 +17,12 @@ public class MedicineDTO {
         this.medicineId = medicineId;
     }
 
-    public String getName() {
-        return name;
+    public String getMedicineName() {
+        return medicineName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setMedicineName(String medicineName) {
+        this.medicineName = medicineName;
     }
 
     public double getPrice() {
@@ -45,7 +45,7 @@ public class MedicineDTO {
     public String toString() {
         return "MedicineDTO{" +
                 "medicineId=" + medicineId +
-                ", name='" + name + '\'' +
+                ", medicineName='" + medicineName + '\'' +
                 ", price=" + price +
                 ", qty=" + qty +
                 '}';

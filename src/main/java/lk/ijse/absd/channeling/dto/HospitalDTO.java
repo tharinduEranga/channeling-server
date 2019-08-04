@@ -2,7 +2,7 @@ package lk.ijse.absd.channeling.dto;
 
 public class HospitalDTO {
     private int hospitalId;
-    private String hospital;
+    private String hospitalName;
 
     public HospitalDTO() {
     }
@@ -15,19 +15,19 @@ public class HospitalDTO {
         this.hospitalId = hospitalId;
     }
 
-    public String getHospital() {
-        return hospital;
+    public String getHospitalName() {
+        return hospitalName;
     }
 
-    public void setHospital(String hospital) {
-        this.hospital = hospital;
+    public void setHospitalName(String hospitalName) {
+        this.hospitalName = hospitalName;
     }
 
     @Override
     public String toString() {
         return "HospitalDTO{" +
                 "hospitalId=" + hospitalId +
-                ", hospital='" + hospital + '\'' +
+                ", hospitalName='" + hospitalName + '\'' +
                 '}';
     }
 }

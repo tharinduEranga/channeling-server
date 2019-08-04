@@ -3,7 +3,7 @@ package lk.ijse.absd.channeling.dto;
 public class SpecialityDTO {
 
     private int specialityId;
-    private String speciality;
+    private String specialityName;
 
     public SpecialityDTO() {
     }
@@ -16,19 +16,19 @@ public class SpecialityDTO {
         this.specialityId = specialityId;
     }
 
-    public String getSpeciality() {
-        return speciality;
+    public String getSpecialityName() {
+        return specialityName;
     }
 
-    public void setSpeciality(String speciality) {
-        this.speciality = speciality;
+    public void setSpecialityName(String specialityName) {
+        this.specialityName = specialityName;
     }
 
     @Override
     public String toString() {
         return "SpecialityDTO{" +
                 "specialityId=" + specialityId +
-                ", speciality='" + speciality + '\'' +
+                ", specialityName='" + specialityName + '\'' +
                 '}';
     }
 }

@@ -6,6 +6,11 @@ public class DoctorDTO {
     private String address;
     private String tel;
 
+    private SpecialityDTO speciality;
+
+    private HospitalDTO hospital;
+
+    private AdminDTO adminDTO;
 
     public DoctorDTO() {
     }
@@ -42,6 +47,30 @@ public class DoctorDTO {
         this.tel = tel;
     }
 
+    public SpecialityDTO getSpeciality() {
+        return speciality;
+    }
+
+    public void setSpeciality(SpecialityDTO speciality) {
+        this.speciality = speciality;
+    }
+
+    public HospitalDTO getHospital() {
+        return hospital;
+    }
+
+    public void setHospital(HospitalDTO hospital) {
+        this.hospital = hospital;
+    }
+
+    public AdminDTO getAdminDTO() {
+        return adminDTO;
+    }
+
+    public void setAdminDTO(AdminDTO adminDTO) {
+        this.adminDTO = adminDTO;
+    }
+
     @Override
     public String toString() {
         return "DoctorDTO{" +
@@ -49,6 +78,9 @@ public class DoctorDTO {
                 ", name='" + name + '\'' +
                 ", address='" + address + '\'' +
                 ", tel='" + tel + '\'' +
+                ", speciality=" + speciality +
+                ", hospital=" + hospital +
                 '}';
     }
+
 }

@@ -9,12 +9,12 @@ public class Medicine {
     @Id
     @GeneratedValue
     private int medicineId;
-    private String name;
+    private String medicineName;
     private double price;
     private double qty;
 
     @ManyToOne
-    @JoinColumn(name = "brandId", insertable = false, updatable = false)
+    @JoinColumn(name = "brandId")
     private Brand brand;
 
     @OneToMany(mappedBy = "medicine", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
@@ -31,12 +31,12 @@ public class Medicine {
         this.medicineId = medicineId;
     }
 
-    public String getName() {
-        return name;
+    public String getMedicineName() {
+        return medicineName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setMedicineName(String medicineName) {
+        this.medicineName = medicineName;
     }
 
     public double getPrice() {

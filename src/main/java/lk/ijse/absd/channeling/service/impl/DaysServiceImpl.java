@@ -26,7 +26,7 @@ public class DaysServiceImpl implements DaysService {
     private ModelMapper modelMapper;
 
     @Override
-    public CommonResponse add(DaysDTO daysDTO) {
+    public CommonResponse<DaysDTO> add(DaysDTO daysDTO) {
         try {
             Days days = modelMapper.map(daysDTO, Days.class);
             days = daysRepository.save(days);
@@ -34,57 +34,57 @@ public class DaysServiceImpl implements DaysService {
             return new CommonResponse<>(true, daysDTO);
         } catch (Exception e) {
             e.printStackTrace();
-            return new CommonResponse(false, COMMONERRORMESSAGE + e.getMessage());
+            return new CommonResponse<>(false, COMMONERRORMESSAGE + e.getMessage());
         }
     }
 
     @Override
-    public CommonResponse update(DaysDTO daysDTO) {
+    public CommonResponse<DaysDTO> update(DaysDTO daysDTO) {
         try {
             if (!daysRepository.findById(daysDTO.getDayId()).isPresent()) {
-                return new CommonResponse(false, "Days not found!");
+                return new CommonResponse<>(false, "Days not found!");
             }
             return add(daysDTO);
         } catch (Exception e) {
             e.printStackTrace();
-            return new CommonResponse(false, COMMONERRORMESSAGE + e.getMessage());
+            return new CommonResponse<>(false, COMMONERRORMESSAGE + e.getMessage());
         }
     }
 
     @Override
-    public CommonResponse search(Integer integer) {
+    public CommonResponse<DaysDTO> search(Integer integer) {
         try {
             Optional<Days> daysById = daysRepository.findById(integer);
             if (!daysById.isPresent()) {
-                return new CommonResponse(false, "Days not found!");
+                return new CommonResponse<>(false, "Days not found!");
             }
             Days days = daysById.get();
             DaysDTO daysDTO = modelMapper.map(days, DaysDTO.class);
             return new CommonResponse<>(true, daysDTO);
         } catch (Exception e) {
             e.printStackTrace();
-            return new CommonResponse(false, COMMONERRORMESSAGE + e.getMessage());
+            return new CommonResponse<>(false, COMMONERRORMESSAGE + e.getMessage());
         }
     }
 
     @Override
-    public CommonResponse delete(Integer integer) {
+    public CommonResponse<DaysDTO> delete(Integer integer) {
         try {
             Optional<Days> daysById = daysRepository.findById(integer);
             if (!daysById.isPresent()) {
-                return new CommonResponse(false, "Days not found!");
+                return new CommonResponse<>(false, "Days not found!");
             }
             Days days = daysById.get();
             daysRepository.delete(days);
             return new CommonResponse<>(true, "Days is deleted!");
         } catch (Exception e) {
             e.printStackTrace();
-            return new CommonResponse(false, COMMONERRORMESSAGE + e.getMessage());
+            return new CommonResponse<>(false, COMMONERRORMESSAGE + e.getMessage());
         }
     }
 
     @Override
-    public CommonResponse getAll() {
+    public CommonResponse<List<DaysDTO>> getAll() {
         try {
             List<Days> daysList = daysRepository.findAll();
             Type targetType = new TypeToken<List<DaysDTO>>() {
@@ -93,7 +93,7 @@ public class DaysServiceImpl implements DaysService {
             return new CommonResponse<>(true, daysDTOS);
         } catch (Exception e) {
             e.printStackTrace();
-            return new CommonResponse(false, COMMONERRORMESSAGE + e.getMessage());
+            return new CommonResponse<>(false, COMMONERRORMESSAGE + e.getMessage());
         }
     }
 }

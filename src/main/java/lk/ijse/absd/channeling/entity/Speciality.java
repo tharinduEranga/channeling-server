@@ -9,7 +9,7 @@ public class Speciality {
     @Id
     @GeneratedValue
     private int specialityId;
-    private String speciality;
+    private String specialityName;
 
     @OneToMany(mappedBy = "speciality", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private List<Doctor> doctors = new ArrayList<>();
@@ -26,12 +26,12 @@ public class Speciality {
         this.specialityId = specialityId;
     }
 
-    public String getSpeciality() {
-        return speciality;
+    public String getSpecialityName() {
+        return specialityName;
     }
 
-    public void setSpeciality(String speciality) {
-        this.speciality = speciality;
+    public void setSpecialityName(String specialityName) {
+        this.specialityName = specialityName;
     }
 
     public List<Doctor> getDoctors() {

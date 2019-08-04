@@ -14,7 +14,7 @@ public class Payments {
     private double amount;
 
     @ManyToOne
-    @JoinColumn(name = "patientId", insertable = false, updatable = false)
+    @JoinColumn(name = "patientId")
     private Patient patient;
 
     @OneToMany(mappedBy = "payments", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})

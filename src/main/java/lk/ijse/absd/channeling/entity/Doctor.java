@@ -15,11 +15,11 @@ public class Doctor {
     private String tel;
 
     @ManyToOne
-    @JoinColumn(name = "specialityId", insertable = false, updatable = false)
+    @JoinColumn(name = "specialityId")
     private Speciality speciality;
 
     @ManyToOne
-    @JoinColumn(name = "hospitalId", insertable = false, updatable = false)
+    @JoinColumn(name = "hospitalId")
     private Hospital hospital;
 
     @OneToMany(mappedBy = "doctor", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
@@ -27,6 +27,9 @@ public class Doctor {
 
     @OneToMany(mappedBy = "doctor", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private List<Appointments> appointments = new ArrayList<>();
+
+    @OneToMany(mappedBy = "doctor", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    private List<Admin_doctor> admin_doctors = new ArrayList<>();
 
     public Doctor() {
     }
@@ -93,5 +96,13 @@ public class Doctor {
 
     public void setAppointments(List<Appointments> appointments) {
         this.appointments = appointments;
+    }
+
+    public List<Admin_doctor> getAdmin_doctors() {
+        return admin_doctors;
+    }
+
+    public void setAdmin_doctors(List<Admin_doctor> admin_doctors) {
+        this.admin_doctors = admin_doctors;
     }
 }

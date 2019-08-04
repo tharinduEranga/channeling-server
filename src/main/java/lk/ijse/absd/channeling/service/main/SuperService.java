@@ -3,15 +3,17 @@ package lk.ijse.absd.channeling.service.main;
 import lk.ijse.absd.channeling.dto.util.CommonResponse;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public interface SuperService<T, K> {
-    CommonResponse add(T t);
+    CommonResponse<T> add(T t);
 
-    CommonResponse update(T t);
+    CommonResponse<T> update(T t);
 
-    CommonResponse search(K k);
+    CommonResponse<T> search(K k);
 
-    CommonResponse delete(K k);
+    CommonResponse<T> delete(K k);
 
-    CommonResponse getAll();
+    CommonResponse<List<T>> getAll();
 }

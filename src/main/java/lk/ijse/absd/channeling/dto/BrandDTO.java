@@ -2,7 +2,7 @@ package lk.ijse.absd.channeling.dto;
 
 public class BrandDTO {
     private int brandId;
-    private String name;
+    private String brandName;
 
     public BrandDTO() {
     }
@@ -15,19 +15,19 @@ public class BrandDTO {
         this.brandId = brandId;
     }
 
-    public String getName() {
-        return name;
+    public String getBrandName() {
+        return brandName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setBrandName(String brandName) {
+        this.brandName = brandName;
     }
 
     @Override
     public String toString() {
         return "BrandDTO{" +
                 "brandId=" + brandId +
-                ", name='" + name + '\'' +
+                ", brandName='" + brandName + '\'' +
                 '}';
     }
 }

@@ -5,31 +5,33 @@ import lk.ijse.absd.channeling.dto.util.CommonResponse;
 import lk.ijse.absd.channeling.service.PaymentsService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class PaymentsServiceImpl implements PaymentsService {
 
     @Override
-    public CommonResponse add(PaymentsDTO paymentsDTO) {
+    public CommonResponse<PaymentsDTO> add(PaymentsDTO paymentsDTO) {
         return null;
     }
 
     @Override
-    public CommonResponse update(PaymentsDTO paymentsDTO) {
+    public CommonResponse<PaymentsDTO> update(PaymentsDTO paymentsDTO) {
         return null;
     }
 
     @Override
-    public CommonResponse search(Integer integer) {
+    public CommonResponse<PaymentsDTO> search(Integer integer) {
         return null;
     }
 
     @Override
-    public CommonResponse delete(Integer integer) {
+    public CommonResponse<PaymentsDTO> delete(Integer integer) {
         return null;
     }
 
     @Override
-    public CommonResponse getAll() {
+    public CommonResponse<List<PaymentsDTO>> getAll() {
         return null;
     }
 }
