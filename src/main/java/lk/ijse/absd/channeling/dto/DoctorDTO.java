@@ -1,5 +1,7 @@
 package lk.ijse.absd.channeling.dto;
 
+import java.util.List;
+
 public class DoctorDTO {
     private int doctorId;
     private String name;
@@ -11,6 +13,8 @@ public class DoctorDTO {
     private HospitalDTO hospital;
 
     private AdminDTO adminDTO;
+
+    private List<DaysDTO> daysDTOs;
 
     public DoctorDTO() {
     }
@@ -66,9 +70,16 @@ public class DoctorDTO {
     public AdminDTO getAdminDTO() {
         return adminDTO;
     }
-
     public void setAdminDTO(AdminDTO adminDTO) {
         this.adminDTO = adminDTO;
+    }
+
+    public List<DaysDTO> getDaysDTOs() {
+        return daysDTOs;
+    }
+
+    public void setDaysDTOs(List<DaysDTO> daysDTOs) {
+        this.daysDTOs = daysDTOs;
     }
 
     @Override
@@ -80,7 +91,8 @@ public class DoctorDTO {
                 ", tel='" + tel + '\'' +
                 ", speciality=" + speciality +
                 ", hospital=" + hospital +
+                ", adminDTO=" + adminDTO +
+                ", daysDTOs=" + daysDTOs +
                 '}';
     }
-
 }
