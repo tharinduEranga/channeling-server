@@ -1,5 +1,6 @@
 package lk.ijse.absd.channeling.dto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DoctorDTO {
@@ -14,7 +15,7 @@ public class DoctorDTO {
 
     private AdminDTO adminDTO;
 
-    private List<DaysDTO> daysDTOs;
+    private List<DaysDTO> daysDTOs = new ArrayList<>();
 
     public DoctorDTO() {
     }

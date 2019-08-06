@@ -16,12 +16,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import static lk.ijse.absd.channeling.util.Constants.COMMONERRORMESSAGE;
 
 @Service
+@Transactional
 public class DoctorServiceImpl implements DoctorService {
 
     @Autowired
@@ -49,7 +51,6 @@ public class DoctorServiceImpl implements DoctorService {
     private DaysRepository daysRepository;
 
     @Override
-    @Transactional
     public CommonResponse<DoctorDTO> add(DoctorDTO doctorDTO) {
         try {
             if (doctorDTO.getSpeciality() == null || !specialityRepository.findById(doctorDTO.getSpeciality().getSpecialityId()).isPresent()) {
@@ -112,7 +113,6 @@ public class DoctorServiceImpl implements DoctorService {
                         doc_days.setDays(days);
                         doc_days.setTimeFrom(daysDTO.getFrom());
                         doc_days.setTimeTo(daysDTO.getTo());
-                        System.out.println("prrenvfd");
                     }
                     doc_days = docDaysRepository.save(doc_days);
                 }
@@ -126,16 +126,80 @@ public class DoctorServiceImpl implements DoctorService {
 
     @Override
     public CommonResponse<DoctorDTO> search(Integer integer) {
-        return null;
+        try {
+            Optional<Doctor> optionalDoctor = doctorRepository.findById(integer);
+            if (!optionalDoctor.isPresent()) {
+                return new CommonResponse<>(false, "No doctor found !");
+            }
+            Doctor doctor = optionalDoctor.get();
+            DoctorDTO doctorDTO = modelMapper.map(doctor, DoctorDTO.class);
+            List<Admin_doctor> admin_doctors = doctor.getAdmin_doctors();
+            if (admin_doctors.size() > 0) {
+                AdminDTO adminDTO = modelMapper.map(admin_doctors.get(0).getAdmin(), AdminDTO.class);
+                adminDTO.setPassword(null);
+                doctorDTO.setAdminDTO(adminDTO);
+            }
+            List<Doc_days> docDays = doctor.getDoc_days();
+            docDays.forEach(doc_days -> {
+                Days days = doc_days.getDays();
+                DaysDTO daysDTO = new DaysDTO();
+                daysDTO.setDay(days.getDay());
+                daysDTO.setFrom(doc_days.getTimeFrom());
+                daysDTO.setTo(doc_days.getTimeTo());
+                daysDTO.setDayId(days.getDayId());
+                doctorDTO.getDaysDTOs().add(daysDTO);
+            });
+            return new CommonResponse<>(true, doctorDTO);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new CommonResponse<>(false, COMMONERRORMESSAGE + e.getMessage());
+        }
     }
 
     @Override
     public CommonResponse<DoctorDTO> delete(Integer integer) {
-        return null;
+        try {
+            Optional<Doctor> doctor = doctorRepository.findById(integer);
+            if (doctor.isPresent()) {
+                doctorRepository.delete(doctor.get());
+                return new CommonResponse<>(true, "Doctor is deleted !");
+            }
+            return new CommonResponse<>(false, "No doctor found !");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new CommonResponse<>(false, COMMONERRORMESSAGE + e.getMessage());
+        }
     }
 
     @Override
     public CommonResponse<List<DoctorDTO>> getAll() {
-        return null;
+        try {
+            List<DoctorDTO> doctorDTOS = new ArrayList<>();
+            List<Doctor> doctorList = doctorRepository.findAll();
+            doctorList.forEach(doctor -> {
+                DoctorDTO doctorDTO = modelMapper.map(doctor, DoctorDTO.class);
+                List<Admin_doctor> admin_doctors = doctor.getAdmin_doctors();
+                if (admin_doctors.size() > 0) {
+                    AdminDTO adminDTO = modelMapper.map(admin_doctors.get(0).getAdmin(), AdminDTO.class);
+                    adminDTO.setPassword(null);
+                    doctorDTO.setAdminDTO(adminDTO);
+                }
+                List<Doc_days> docDays = doctor.getDoc_days();
+                docDays.forEach(doc_days -> {
+                    Days days = doc_days.getDays();
+                    DaysDTO daysDTO = new DaysDTO();
+                    daysDTO.setDay(days.getDay());
+                    daysDTO.setFrom(doc_days.getTimeFrom());
+                    daysDTO.setTo(doc_days.getTimeTo());
+                    daysDTO.setDayId(days.getDayId());
+                    doctorDTO.getDaysDTOs().add(daysDTO);
+                });
+                doctorDTOS.add(doctorDTO);
+            });
+            return new CommonResponse<>(true, doctorDTOS);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new CommonResponse<>(false, COMMONERRORMESSAGE + e.getMessage());
+        }
     }
 }
