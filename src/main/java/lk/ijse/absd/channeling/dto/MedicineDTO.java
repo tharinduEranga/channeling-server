@@ -6,6 +6,8 @@ public class MedicineDTO {
     private double price;
     private double qty;
 
+    private BrandDTO brand;
+
     public MedicineDTO() {
     }
 
@@ -41,6 +43,14 @@ public class MedicineDTO {
         this.qty = qty;
     }
 
+    public BrandDTO getBrand() {
+        return brand;
+    }
+
+    public void setBrand(BrandDTO brand) {
+        this.brand = brand;
+    }
+
     @Override
     public String toString() {
         return "MedicineDTO{" +
@@ -48,6 +58,7 @@ public class MedicineDTO {
                 ", medicineName='" + medicineName + '\'' +
                 ", price=" + price +
                 ", qty=" + qty +
+                ", brand=" + brand +
                 '}';
     }
 }

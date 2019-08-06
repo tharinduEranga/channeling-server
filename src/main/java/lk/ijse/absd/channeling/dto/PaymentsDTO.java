@@ -1,11 +1,17 @@
 package lk.ijse.absd.channeling.dto;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PaymentsDTO {
     private int paymentId;
     private Date date;
     private double amount;
+
+    private PatientDTO patient;
+
+    private List<PaymentMedDTO> paymentMedDTOS = new ArrayList<>();
 
     public PaymentsDTO() {
     }
@@ -34,12 +40,30 @@ public class PaymentsDTO {
         this.amount = amount;
     }
 
+    public PatientDTO getPatient() {
+        return patient;
+    }
+
+    public void setPatient(PatientDTO patient) {
+        this.patient = patient;
+    }
+
+    public List<PaymentMedDTO> getPaymentMedDTOS() {
+        return paymentMedDTOS;
+    }
+
+    public void setPaymentMedDTOS(List<PaymentMedDTO> paymentMedDTOS) {
+        this.paymentMedDTOS = paymentMedDTOS;
+    }
+
     @Override
     public String toString() {
         return "PaymentsDTO{" +
                 "paymentId=" + paymentId +
                 ", date=" + date +
                 ", amount=" + amount +
+                ", patient=" + patient +
+                ", paymentMedDTOS=" + paymentMedDTOS +
                 '}';
     }
 }

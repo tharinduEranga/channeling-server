@@ -140,15 +140,7 @@ public class DoctorServiceImpl implements DoctorService {
                 doctorDTO.setAdminDTO(adminDTO);
             }
             List<Doc_days> docDays = doctor.getDoc_days();
-            docDays.forEach(doc_days -> {
-                Days days = doc_days.getDays();
-                DaysDTO daysDTO = new DaysDTO();
-                daysDTO.setDay(days.getDay());
-                daysDTO.setFrom(doc_days.getTimeFrom());
-                daysDTO.setTo(doc_days.getTimeTo());
-                daysDTO.setDayId(days.getDayId());
-                doctorDTO.getDaysDTOs().add(daysDTO);
-            });
+            setDocDays(doctorDTO, docDays);
             return new CommonResponse<>(true, doctorDTO);
         } catch (Exception e) {
             e.printStackTrace();
@@ -185,15 +177,7 @@ public class DoctorServiceImpl implements DoctorService {
                     doctorDTO.setAdminDTO(adminDTO);
                 }
                 List<Doc_days> docDays = doctor.getDoc_days();
-                docDays.forEach(doc_days -> {
-                    Days days = doc_days.getDays();
-                    DaysDTO daysDTO = new DaysDTO();
-                    daysDTO.setDay(days.getDay());
-                    daysDTO.setFrom(doc_days.getTimeFrom());
-                    daysDTO.setTo(doc_days.getTimeTo());
-                    daysDTO.setDayId(days.getDayId());
-                    doctorDTO.getDaysDTOs().add(daysDTO);
-                });
+                setDocDays(doctorDTO, docDays);
                 doctorDTOS.add(doctorDTO);
             });
             return new CommonResponse<>(true, doctorDTOS);
@@ -201,5 +185,17 @@ public class DoctorServiceImpl implements DoctorService {
             e.printStackTrace();
             return new CommonResponse<>(false, COMMONERRORMESSAGE + e.getMessage());
         }
+    }
+
+    private void setDocDays(DoctorDTO doctorDTO, List<Doc_days> docDays) {
+        docDays.forEach(doc_days -> {
+            Days days = doc_days.getDays();
+            DaysDTO daysDTO = new DaysDTO();
+            daysDTO.setDay(days.getDay());
+            daysDTO.setFrom(doc_days.getTimeFrom());
+            daysDTO.setTo(doc_days.getTimeTo());
+            daysDTO.setDayId(days.getDayId());
+            doctorDTO.getDaysDTOs().add(daysDTO);
+        });
     }
 }
