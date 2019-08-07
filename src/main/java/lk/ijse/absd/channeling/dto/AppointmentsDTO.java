@@ -2,13 +2,17 @@ package lk.ijse.absd.channeling.dto;
 
 import java.sql.Date;
 
-public class AppointMentsDTO {
+public class AppointmentsDTO {
     private int appointmentId;
     private Date date;
     private int token_no;
     private String issue;
 
-    public AppointMentsDTO() {
+    private PatientDTO patient;
+
+    private DoctorDTO doctor;
+
+    public AppointmentsDTO() {
     }
 
     public int getAppointmentId() {
@@ -43,13 +47,31 @@ public class AppointMentsDTO {
         this.issue = issue;
     }
 
+    public PatientDTO getPatient() {
+        return patient;
+    }
+
+    public void setPatient(PatientDTO patient) {
+        this.patient = patient;
+    }
+
+    public DoctorDTO getDoctor() {
+        return doctor;
+    }
+
+    public void setDoctor(DoctorDTO doctor) {
+        this.doctor = doctor;
+    }
+
     @Override
     public String toString() {
-        return "AppointMentsDTO{" +
+        return "AppointmentsDTO{" +
                 "appointmentId=" + appointmentId +
                 ", date=" + date +
                 ", token_no=" + token_no +
                 ", issue='" + issue + '\'' +
+                ", patient=" + patient +
+                ", doctor=" + doctor +
                 '}';
     }
 }
