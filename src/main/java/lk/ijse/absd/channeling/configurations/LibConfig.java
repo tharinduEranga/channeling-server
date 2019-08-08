@@ -1,5 +1,6 @@
 package lk.ijse.absd.channeling.configurations;
 
+import lk.ijse.absd.channeling.util.SMSHandler;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,6 +18,11 @@ public class LibConfig {
     @Bean
     public ModelMapper modelMapper() {
         return new ModelMapper();
+    }
+
+    @Bean
+    public SMSHandler smsHandler() {
+        return new SMSHandler();
     }
 }
 

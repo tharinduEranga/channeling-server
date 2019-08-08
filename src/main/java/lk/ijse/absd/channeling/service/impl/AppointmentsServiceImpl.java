@@ -9,6 +9,7 @@ import lk.ijse.absd.channeling.entity.Doctor;
 import lk.ijse.absd.channeling.repository.AppointmentRepository;
 import lk.ijse.absd.channeling.repository.DocDaysRepository;
 import lk.ijse.absd.channeling.repository.DoctorRepository;
+import lk.ijse.absd.channeling.repository.PatientRepository;
 import lk.ijse.absd.channeling.service.AppointmentsService;
 import org.joda.time.LocalDate;
 import org.modelmapper.ModelMapper;
@@ -34,6 +35,9 @@ public class AppointmentsServiceImpl implements AppointmentsService {
 
     @Autowired
     private DocDaysRepository docDaysRepository;
+
+    @Autowired
+    private PatientRepository patientRepository;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -68,6 +72,13 @@ public class AppointmentsServiceImpl implements AppointmentsService {
                 }
             }
             if (isDayAvailable) {
+                int tokenNo = 1;
+                List<Appointments> appointmentsByDoctorAndDate = appointmentsRepository
+                        .findByDoctorAndDate(doctor, appointmentsDTO.getDate());
+                if (appointmentsByDoctorAndDate != null && appointmentsByDoctorAndDate.size() > 0) {
+                    tokenNo = tokenNo + appointmentsByDoctorAndDate.get(appointmentsByDoctorAndDate.size() - 1).getToken_no();
+                }
+                appointments.setToken_no(tokenNo);
                 appointments = appointmentsRepository.save(appointments);
             } else {
                 return new CommonResponse<>(false, "Day is not available for doctor!");
