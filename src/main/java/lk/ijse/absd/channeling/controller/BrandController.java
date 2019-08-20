@@ -16,27 +16,27 @@ public class BrandController {
     private BrandService brandService;
 
     @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity getAllHospitals() {
+    public ResponseEntity getAllBrands() {
         return ResponseEntity.ok(brandService.getAll());
     }
 
     @PostMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity saveHospitals(@RequestBody BrandDTO brandDTO) {
+    public ResponseEntity saveBrands(@RequestBody BrandDTO brandDTO) {
         return ResponseEntity.ok(brandService.add(brandDTO));
     }
 
     @PutMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity updateHospitals(@RequestBody BrandDTO brandDTO) {
+    public ResponseEntity updateBrands(@RequestBody BrandDTO brandDTO) {
         return ResponseEntity.ok(brandService.update(brandDTO));
     }
 
     @GetMapping(value = "/{brandId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity searchHospitals(@PathVariable("brandId") Integer brandId) {
+    public ResponseEntity searchBrands(@PathVariable("brandId") Integer brandId) {
         return ResponseEntity.ok(brandService.search(brandId));
     }
 
     @DeleteMapping(value = "/{brandId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity deleteHospitals(@PathVariable("brandId") Integer brandId) {
+    public ResponseEntity deleteBrands(@PathVariable("brandId") Integer brandId) {
         return ResponseEntity.ok(brandService.delete(brandId));
     }
 }
