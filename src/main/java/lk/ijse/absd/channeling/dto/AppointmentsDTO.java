@@ -1,9 +1,12 @@
 package lk.ijse.absd.channeling.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.sql.Date;
 
 public class AppointmentsDTO {
     private int appointmentId;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date date;
     private int token_no;
     private String issue;
