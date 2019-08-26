@@ -2,11 +2,14 @@ package lk.ijse.absd.channeling.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import java.sql.Date;
 
 public class AppointmentsDTO {
     private int appointmentId;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    @Temporal(TemporalType.DATE)
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Colombo")
     private Date date;
     private int token_no;
     private String issue;
