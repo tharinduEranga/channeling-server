@@ -1,11 +1,14 @@
 package lk.ijse.absd.channeling.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
 public class PaymentsDTO {
     private int paymentId;
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Colombo")
     private Date date;
     private double amount;
 
