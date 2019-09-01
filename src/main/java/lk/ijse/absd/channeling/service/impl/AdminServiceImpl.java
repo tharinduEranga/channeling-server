@@ -5,6 +5,7 @@ import lk.ijse.absd.channeling.dto.util.CommonResponse;
 import lk.ijse.absd.channeling.entity.Admin;
 import lk.ijse.absd.channeling.repository.AdminRepository;
 import lk.ijse.absd.channeling.service.AdminService;
+import org.apache.log4j.Logger;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,8 @@ public class AdminServiceImpl implements AdminService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    private static final Logger LOGGER = Logger.getLogger(AdminServiceImpl.class);
 
     @Override
     public CommonResponse<AdminDTO> add(AdminDTO adminDTO) {
@@ -53,7 +56,11 @@ public class AdminServiceImpl implements AdminService {
             if (!adminRepository.findById(adminDTO.getAdminId()).isPresent()) {
                 return new CommonResponse<>(false, "Admin not found!");
             }
-            return add(adminDTO);
+            LOGGER.info("Admin service: " + adminDTO);
+            Admin admin = modelMapper.map(adminDTO, Admin.class);
+            admin.setPassword(passwordEncoder.encode(admin.getPassword()));
+            admin = adminRepository.save(admin);
+            return new CommonResponse<>(true, adminDTO);
         } catch (Exception e) {
             e.printStackTrace();
             return new CommonResponse<>(false, COMMONERRORMESSAGE + e.getMessage());

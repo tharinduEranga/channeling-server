@@ -46,4 +46,14 @@ public class AdminDTO {
     public void setRoles(Roles roles) {
         this.roles = roles;
     }
+
+    @Override
+    public String toString() {
+        return "AdminDTO{" +
+                "adminId=" + adminId +
+                ", userName='" + userName + '\'' +
+                ", password='" + password + '\'' +
+                ", roles=" + roles +
+                '}';
+    }
 }

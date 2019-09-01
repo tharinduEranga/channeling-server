@@ -47,4 +47,13 @@ public class CommonResponse<T> {
     public void setMessage(String message) {
         this.message = message;
     }
+
+    @Override
+    public String toString() {
+        return "CommonResponse{" +
+                "success=" + success +
+                ", body=" + body +
+                ", message='" + message + '\'' +
+                '}';
+    }
 }

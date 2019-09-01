@@ -103,11 +103,14 @@ public class DoctorServiceImpl implements DoctorService {
             if (!docById.isPresent()) {
                 return new CommonResponse<>(false, "No doctor found !");
             }
+            logger.info(doctorDTO.getAdminDTO());
             if (doctorDTO.getAdminDTO().getPassword() == null && doctor.getAdmin_doctors() != null &&
-                    doctor.getAdmin_doctors().size() > 0) {
-                doctorDTO.getAdminDTO().setPassword(doctor.getAdmin_doctors().get(0).getAdmin().getPassword());
+                    docById.get().getAdmin_doctors().size() > 0) {
+                doctorDTO.getAdminDTO().setPassword(docById.get().getAdmin_doctors().get(0).getAdmin().getPassword());
             }
-            CommonResponse<AdminDTO> adminDTOResponse = adminService.add(doctorDTO.getAdminDTO());
+            doctorDTO.getAdminDTO().setRoles(Roles.DOCTOR);
+            CommonResponse<AdminDTO> adminDTOResponse = adminService.update(doctorDTO.getAdminDTO());
+            logger.info(adminDTOResponse);
             doctor = doctorRepository.save(doctor);
             List<DaysDTO> daysDTOs = doctorDTO.getDaysDTOs();
             if (daysDTOs != null && daysDTOs.size() > 0) {
