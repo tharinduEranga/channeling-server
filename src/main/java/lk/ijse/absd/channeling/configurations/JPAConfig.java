@@ -59,7 +59,7 @@ public class JPAConfig {
         hibernateJpaVendorAdapter.setDatabasePlatform(dialect);
         hibernateJpaVendorAdapter.setDatabase(Database.MYSQL);
         hibernateJpaVendorAdapter.setGenerateDdl(true);
-        hibernateJpaVendorAdapter.setShowSql(true);
+        hibernateJpaVendorAdapter.setShowSql(false);
         return hibernateJpaVendorAdapter;
     }
 

@@ -9,6 +9,7 @@ import lk.ijse.absd.channeling.repository.*;
 import lk.ijse.absd.channeling.service.AdminService;
 import lk.ijse.absd.channeling.service.DoctorService;
 import lk.ijse.absd.channeling.util.Roles;
+import org.apache.log4j.Logger;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.jpa.JpaSystemException;
@@ -49,6 +50,8 @@ public class DoctorServiceImpl implements DoctorService {
 
     @Autowired
     private DaysRepository daysRepository;
+
+    private static final Logger logger = Logger.getLogger(DoctorServiceImpl.class);
 
     @Override
     public CommonResponse<DoctorDTO> add(DoctorDTO doctorDTO) {
@@ -100,6 +103,11 @@ public class DoctorServiceImpl implements DoctorService {
             if (!docById.isPresent()) {
                 return new CommonResponse<>(false, "No doctor found !");
             }
+            if (doctorDTO.getAdminDTO().getPassword() == null && doctor.getAdmin_doctors() != null &&
+                    doctor.getAdmin_doctors().size() > 0) {
+                doctorDTO.getAdminDTO().setPassword(doctor.getAdmin_doctors().get(0).getAdmin().getPassword());
+            }
+            CommonResponse<AdminDTO> adminDTOResponse = adminService.add(doctorDTO.getAdminDTO());
             doctor = doctorRepository.save(doctor);
             List<DaysDTO> daysDTOs = doctorDTO.getDaysDTOs();
             if (daysDTOs != null && daysDTOs.size() > 0) {
