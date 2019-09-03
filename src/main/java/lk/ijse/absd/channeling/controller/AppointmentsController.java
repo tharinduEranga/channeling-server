@@ -1,7 +1,9 @@
 package lk.ijse.absd.channeling.controller;
 
 import lk.ijse.absd.channeling.dto.AppointmentsDTO;
+import lk.ijse.absd.channeling.dto.util.CommonResponse;
 import lk.ijse.absd.channeling.service.AppointmentsService;
+import lk.ijse.absd.channeling.util.ChannelingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -16,27 +18,35 @@ public class AppointmentsController {
     private AppointmentsService appointmentsService;
 
     @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity getAllHospitals() {
+    public ResponseEntity getAllAppointments() {
         return ResponseEntity.ok(appointmentsService.getAll());
     }
 
     @PostMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity saveHospitals(@RequestBody AppointmentsDTO appointmentsDTO) {
-        return ResponseEntity.ok(appointmentsService.add(appointmentsDTO));
+    public ResponseEntity saveAppointments(@RequestBody AppointmentsDTO appointmentsDTO) {
+        try {
+            return ResponseEntity.ok(appointmentsService.add(appointmentsDTO));
+        } catch (ChannelingException c) {
+            return ResponseEntity.ok(new CommonResponse<>(false, c.getMessage()));
+        }
     }
 
     @PutMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity updateHospitals(@RequestBody AppointmentsDTO appointmentsDTO) {
-        return ResponseEntity.ok(appointmentsService.update(appointmentsDTO));
+    public ResponseEntity updateAppointments(@RequestBody AppointmentsDTO appointmentsDTO) {
+        try {
+            return ResponseEntity.ok(appointmentsService.update(appointmentsDTO));
+        } catch (ChannelingException c) {
+            return ResponseEntity.ok(new CommonResponse<>(false, c.getMessage()));
+        }
     }
 
     @GetMapping(value = "/{appointmentsId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity searchHospitals(@PathVariable("appointmentsId") Integer appointmentsId) {
+    public ResponseEntity searchAppointments(@PathVariable("appointmentsId") Integer appointmentsId) {
         return ResponseEntity.ok(appointmentsService.search(appointmentsId));
     }
 
     @DeleteMapping(value = "/{appointmentsId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity deleteHospitals(@PathVariable("appointmentsId") Integer appointmentsId) {
+    public ResponseEntity deleteAppointments(@PathVariable("appointmentsId") Integer appointmentsId) {
         return ResponseEntity.ok(appointmentsService.delete(appointmentsId));
     }
 

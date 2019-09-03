@@ -1,5 +1,7 @@
 package lk.ijse.absd.channeling.util;
 
+import org.apache.log4j.Logger;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -16,6 +18,8 @@ import static lk.ijse.absd.channeling.util.Constants.TEXTFULLURL;
  */
 public class SMSHandler {
 
+    private static final Logger LOGGER = Logger.getLogger(SMSHandler.class);
+
     /**
      * @param mobile  number of the reciever
      * @param message for the sms to send
@@ -23,14 +27,17 @@ public class SMSHandler {
      * @throws IOException if something went wrong
      */
     public static boolean sendSms(String mobile, String message) throws IOException {
+        LOGGER.info("Sending SMS to " + mobile + " and message is : " + message);
         String smsUrl = TEXTFULLURL + "&to=" + mobile + "&text=" + message.replaceAll(" ", "+") + "";
         URL texTit = new URL(smsUrl);
         BufferedReader in = new BufferedReader(
                 new InputStreamReader(texTit.openStream()));
-        String inputLine;
-        while ((inputLine = in.readLine()) != null)
-            System.out.println(inputLine);
+        String inputLine = null;
+        while ((inputLine = in.readLine()) != null) {
+            LOGGER.info(inputLine);
+        }
         in.close();
+
         return true;
     }
 

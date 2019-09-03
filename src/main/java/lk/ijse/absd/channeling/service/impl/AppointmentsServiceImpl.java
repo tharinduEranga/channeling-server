@@ -11,6 +11,9 @@ import lk.ijse.absd.channeling.repository.DocDaysRepository;
 import lk.ijse.absd.channeling.repository.DoctorRepository;
 import lk.ijse.absd.channeling.repository.PatientRepository;
 import lk.ijse.absd.channeling.service.AppointmentsService;
+import lk.ijse.absd.channeling.util.ChannelingException;
+import lk.ijse.absd.channeling.util.SMSHandler;
+import org.apache.log4j.Logger;
 import org.joda.time.LocalDate;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
@@ -41,6 +44,8 @@ public class AppointmentsServiceImpl implements AppointmentsService {
 
     @Autowired
     private ModelMapper modelMapper;
+
+    private static final Logger LOGGER = Logger.getLogger(AppointmentsServiceImpl.class);
 
     @Override
     @Transactional
@@ -83,10 +88,20 @@ public class AppointmentsServiceImpl implements AppointmentsService {
             } else {
                 return new CommonResponse<>(false, "Day is not available for doctor!");
             }
+
             appointmentsDTO = modelMapper.map(appointments, AppointmentsDTO.class);
+
+            //send sms to appointment booked patient
+            boolean sendSms = SMSHandler.sendSms(appointmentsDTO.getPatient().getTel(), "The token number for appointment at "
+                    + appointmentsDTO.getDate() + " is: " + appointmentsDTO.getToken_no());
+            LOGGER.info("SMS Sens is : " + sendSms);
+            if (!sendSms) {
+                throw new ChannelingException(505, "Failed to send SMS");
+            }
             return new CommonResponse<>(true, appointmentsDTO);
         } catch (Exception e) {
             e.printStackTrace();
+            LOGGER.error(e.getMessage());
             return new CommonResponse<>(false, COMMONERRORMESSAGE + e.getMessage());
         }
     }
