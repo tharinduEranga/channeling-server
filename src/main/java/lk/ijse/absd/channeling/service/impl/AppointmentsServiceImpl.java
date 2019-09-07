@@ -172,8 +172,9 @@ public class AppointmentsServiceImpl implements AppointmentsService {
     @Override
     public CommonResponse<List<AppointmentsDTO>> getFutureAppointments() {
         try {
+            Date today = new Date(System.currentTimeMillis());
             List<Appointments> appointmentsList =
-                    appointmentsRepository.findAllByDateAfterOrderByDateAsc(new Date(System.currentTimeMillis()));
+                    appointmentsRepository.findAllByDateAfterOrDateOrderByDateAsc(today, today);
             Type targetType = new TypeToken<List<AppointmentsDTO>>() {
             }.getType();
             List<AppointmentsDTO> appointmentsDTOS = modelMapper.map(appointmentsList, targetType);
