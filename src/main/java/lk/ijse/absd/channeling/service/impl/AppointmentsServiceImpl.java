@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.lang.reflect.Type;
+import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -158,6 +159,21 @@ public class AppointmentsServiceImpl implements AppointmentsService {
     public CommonResponse<List<AppointmentsDTO>> getAll() {
         try {
             List<Appointments> appointmentsList = appointmentsRepository.findAll();
+            Type targetType = new TypeToken<List<AppointmentsDTO>>() {
+            }.getType();
+            List<AppointmentsDTO> appointmentsDTOS = modelMapper.map(appointmentsList, targetType);
+            return new CommonResponse<>(true, appointmentsDTOS);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new CommonResponse<>(false, COMMONERRORMESSAGE + e.getMessage());
+        }
+    }
+
+    @Override
+    public CommonResponse<List<AppointmentsDTO>> getFutureAppointments() {
+        try {
+            List<Appointments> appointmentsList =
+                    appointmentsRepository.findAllByDateAfterOrderByDateAsc(new Date(System.currentTimeMillis()));
             Type targetType = new TypeToken<List<AppointmentsDTO>>() {
             }.getType();
             List<AppointmentsDTO> appointmentsDTOS = modelMapper.map(appointmentsList, targetType);

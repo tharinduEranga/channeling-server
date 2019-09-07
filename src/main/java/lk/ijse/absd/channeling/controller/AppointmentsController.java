@@ -50,4 +50,9 @@ public class AppointmentsController {
         return ResponseEntity.ok(appointmentsService.delete(appointmentsId));
     }
 
+    @GetMapping(value = "/future", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity getFutureAppointments() {
+        return ResponseEntity.ok(appointmentsService.getFutureAppointments());
+    }
+
 }

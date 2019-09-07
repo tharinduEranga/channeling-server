@@ -11,4 +11,6 @@ import java.util.List;
 @Repository
 public interface AppointmentRepository extends JpaRepository<Appointments, Integer> {
     List<Appointments> findByDoctorAndDate(Doctor doctor, Date date);
+
+    List<Appointments> findAllByDateAfterOrderByDateAsc(Date date);
 }
