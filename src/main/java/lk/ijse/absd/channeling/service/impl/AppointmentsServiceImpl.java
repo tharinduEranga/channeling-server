@@ -11,8 +11,6 @@ import lk.ijse.absd.channeling.repository.DocDaysRepository;
 import lk.ijse.absd.channeling.repository.DoctorRepository;
 import lk.ijse.absd.channeling.repository.PatientRepository;
 import lk.ijse.absd.channeling.service.AppointmentsService;
-import lk.ijse.absd.channeling.util.ChannelingException;
-import lk.ijse.absd.channeling.util.SMSHandler;
 import org.apache.log4j.Logger;
 import org.joda.time.LocalDate;
 import org.modelmapper.ModelMapper;
@@ -84,6 +82,10 @@ public class AppointmentsServiceImpl implements AppointmentsService {
                     tokenNo = tokenNo + appointmentsByDoctorAndDate.get(appointmentsByDoctorAndDate.size() - 1).getToken_no();
                 }
                 appointments.setToken_no(tokenNo);
+                //runs following if condition if the appointment is an update, as its id will be greater than 1
+                if (appointments.getAppointmentId() > 0) {
+                    appointments.setToken_no(appointmentsDTO.getToken_no());
+                }
                 appointments = appointmentsRepository.save(appointments);
             } else {
                 return new CommonResponse<>(false, "Day is not available for doctor!");
@@ -92,12 +94,12 @@ public class AppointmentsServiceImpl implements AppointmentsService {
             appointmentsDTO = modelMapper.map(appointments, AppointmentsDTO.class);
 
             //send sms to appointment booked patient
-            boolean sendSms = SMSHandler.sendSms(appointmentsDTO.getPatient().getTel(), "The token number for appointment at "
-                    + appointmentsDTO.getDate() + " is: " + appointmentsDTO.getToken_no());
-            LOGGER.info("SMS Sens is : " + sendSms);
-            if (!sendSms) {
-                throw new ChannelingException(505, "Failed to send SMS");
-            }
+//            boolean sendSms = SMSHandler.sendSms(appointmentsDTO.getPatient().getTel(), "The token number for appointment at "
+//                    + appointmentsDTO.getDate() + " is: " + appointmentsDTO.getToken_no());
+//            LOGGER.info("SMS Sens is : " + sendSms);
+//            if (!sendSms) {
+//                throw new ChannelingException(505, "Failed to send SMS");
+//            }
             return new CommonResponse<>(true, appointmentsDTO);
         } catch (Exception e) {
             e.printStackTrace();
@@ -107,6 +109,7 @@ public class AppointmentsServiceImpl implements AppointmentsService {
     }
 
     @Override
+    @Transactional
     public CommonResponse<AppointmentsDTO> update(AppointmentsDTO appointmentsDTO) {
         try {
             if (!appointmentsRepository.findById(appointmentsDTO.getAppointmentId()).isPresent()) {
