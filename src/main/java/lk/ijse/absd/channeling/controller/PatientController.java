@@ -16,27 +16,27 @@ public class PatientController {
     private PatientService patientService;
 
     @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity getAllHospitals() {
+    public ResponseEntity getAllPatients() {
         return ResponseEntity.ok(patientService.getAll());
     }
 
     @PostMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity saveHospitals(@RequestBody PatientDTO patientDTO) {
+    public ResponseEntity savePatients(@RequestBody PatientDTO patientDTO) {
         return ResponseEntity.ok(patientService.add(patientDTO));
     }
 
     @PutMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity updateHospitals(@RequestBody PatientDTO patientDTO) {
+    public ResponseEntity updatePatients(@RequestBody PatientDTO patientDTO) {
         return ResponseEntity.ok(patientService.update(patientDTO));
     }
 
     @GetMapping(value = "/{patientId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity searchHospitals(@PathVariable("patientId") Integer patientId) {
+    public ResponseEntity searchPatients(@PathVariable("patientId") Integer patientId) {
         return ResponseEntity.ok(patientService.search(patientId));
     }
 
     @DeleteMapping(value = "/{patientId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity deleteHospitals(@PathVariable("patientId") Integer patientId) {
+    public ResponseEntity deletePatients(@PathVariable("patientId") Integer patientId) {
         return ResponseEntity.ok(patientService.delete(patientId));
     }
 }

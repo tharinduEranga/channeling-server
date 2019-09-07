@@ -16,27 +16,27 @@ public class PaymentsController {
     private PaymentsService paymentsService;
 
     @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity getAllPaymentss() {
+    public ResponseEntity getAllPayments() {
         return ResponseEntity.ok(paymentsService.getAll());
     }
 
     @PostMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity savePaymentss(@RequestBody PaymentsDTO paymentsDTO) {
+    public ResponseEntity savePayments(@RequestBody PaymentsDTO paymentsDTO) {
         return ResponseEntity.ok(paymentsService.add(paymentsDTO));
     }
 
     @PutMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity updatePaymentss(@RequestBody PaymentsDTO paymentsDTO) {
+    public ResponseEntity updatePayments(@RequestBody PaymentsDTO paymentsDTO) {
         return ResponseEntity.ok(paymentsService.update(paymentsDTO));
     }
 
     @GetMapping(value = "/{paymentsId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity searchPaymentss(@PathVariable("paymentsId") Integer paymentsId) {
+    public ResponseEntity searchPayments(@PathVariable("paymentsId") Integer paymentsId) {
         return ResponseEntity.ok(paymentsService.search(paymentsId));
     }
 
     @DeleteMapping(value = "/{paymentsId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity deletePaymentss(@PathVariable("paymentsId") Integer paymentsId) {
+    public ResponseEntity deletePayments(@PathVariable("paymentsId") Integer paymentsId) {
         return ResponseEntity.ok(paymentsService.delete(paymentsId));
     }
 

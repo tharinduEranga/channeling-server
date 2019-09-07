@@ -16,27 +16,27 @@ public class DaysController {
     private DaysService daysService;
 
     @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity getAllHospitals() {
+    public ResponseEntity getAllDays() {
         return ResponseEntity.ok(daysService.getAll());
     }
 
     @PostMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity saveHospitals(@RequestBody DaysDTO daysDTO) {
+    public ResponseEntity saveDays(@RequestBody DaysDTO daysDTO) {
         return ResponseEntity.ok(daysService.add(daysDTO));
     }
 
     @PutMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity updateHospitals(@RequestBody DaysDTO daysDTO) {
+    public ResponseEntity updateDays(@RequestBody DaysDTO daysDTO) {
         return ResponseEntity.ok(daysService.update(daysDTO));
     }
 
     @GetMapping(value = "/{daysId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity searchHospitals(@PathVariable("daysId") Integer daysId) {
+    public ResponseEntity searchDays(@PathVariable("daysId") Integer daysId) {
         return ResponseEntity.ok(daysService.search(daysId));
     }
 
     @DeleteMapping(value = "/{daysId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity deleteHospitals(@PathVariable("daysId") Integer daysId) {
+    public ResponseEntity deleteDays(@PathVariable("daysId") Integer daysId) {
         return ResponseEntity.ok(daysService.delete(daysId));
     }
 }

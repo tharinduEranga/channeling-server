@@ -16,27 +16,27 @@ public class SpecialityController {
     private SpecialityService specialityService;
 
     @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity getAllHospitals() {
+    public ResponseEntity getAllSpecialities() {
         return ResponseEntity.ok(specialityService.getAll());
     }
 
     @PostMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity saveHospitals(@RequestBody SpecialityDTO specialityDTO) {
+    public ResponseEntity saveSpecialities(@RequestBody SpecialityDTO specialityDTO) {
         return ResponseEntity.ok(specialityService.add(specialityDTO));
     }
 
     @PutMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity updateHospitals(@RequestBody SpecialityDTO specialityDTO) {
+    public ResponseEntity updateSpecialities(@RequestBody SpecialityDTO specialityDTO) {
         return ResponseEntity.ok(specialityService.update(specialityDTO));
     }
 
     @GetMapping(value = "/{specialityId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity searchHospitals(@PathVariable("specialityId") Integer specialityId) {
+    public ResponseEntity searchSpecialities(@PathVariable("specialityId") Integer specialityId) {
         return ResponseEntity.ok(specialityService.search(specialityId));
     }
 
     @DeleteMapping(value = "/{specialityId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity deleteHospitals(@PathVariable("specialityId") Integer specialityId) {
+    public ResponseEntity deleteSpecialities(@PathVariable("specialityId") Integer specialityId) {
         return ResponseEntity.ok(specialityService.delete(specialityId));
     }
 }
