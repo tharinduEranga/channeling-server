@@ -117,4 +117,23 @@ public class AdminServiceImpl implements AdminService {
     public AdminDTO changePassword(AdminDTO adminDTO) {
         return null;
     }
+
+    @Override
+    public CommonResponse<AdminDTO> login(AdminDTO adminDTO) {
+        try {
+            Admin admin = adminRepository.findByUserName(adminDTO.getUserName());
+            if (admin == null) {
+                return new CommonResponse<>(false, "User does not exist, invalid username!");
+            }
+            if (passwordEncoder.matches(adminDTO.getPassword(), admin.getPassword())) {
+                adminDTO = modelMapper.map(admin, AdminDTO.class);
+                adminDTO.setPassword(null);
+                return new CommonResponse<>(true, adminDTO);
+            }
+            return new CommonResponse<>(false, "Incorrect Password!");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new CommonResponse<>(false, COMMONERRORMESSAGE + e.getMessage());
+        }
+    }
 }
