@@ -1,7 +1,8 @@
 package lk.ijse.absd.channeling.configurations.filter;
 
+import io.jsonwebtoken.Claims;
+import lk.ijse.absd.channeling.configurations.security.JWTAuthenticator;
 import org.apache.log4j.Logger;
-import org.springframework.core.annotation.Order;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -9,10 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static org.springframework.core.Ordered.HIGHEST_PRECEDENCE;
-
 @WebFilter(urlPatterns = "/*")
-@Order(HIGHEST_PRECEDENCE)
 public class CustomFilter implements Filter {
 
     private static final Logger LOGGER = Logger.getLogger(CustomFilter.class);
@@ -29,9 +27,23 @@ public class CustomFilter implements Filter {
         HttpServletResponse httpServletResponse = (HttpServletResponse) servletResponse;
 
         String authorization = httpServletRequest.getHeader("authorization");
-        LOGGER.info("Path: " + httpServletRequest.getServletPath());
+        String servletPath = httpServletRequest.getServletPath();
+        LOGGER.info("\nPath: " + servletPath + "\ntoken: " + authorization);
 
-        filterChain.doFilter(servletRequest, servletResponse);
+        try {
+            Claims claims = JWTAuthenticator.decodeJWT(authorization);
+        } catch (Exception e) {
+            if (servletPath.equalsIgnoreCase("/admins/login")) {
+                filterChain.doFilter(httpServletRequest, httpServletResponse);
+                return;
+            }
+            e.printStackTrace();
+            httpServletResponse.setStatus(401);
+            httpServletResponse.sendError(401, "Invalid token!");
+
+        }
+
+        filterChain.doFilter(httpServletRequest, httpServletResponse);
 
     }
 

@@ -34,9 +34,6 @@ public class AdminServiceImpl implements AdminService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @Autowired
-    private JWTAuthenticator jwtAuthenticator;
-
     private static final Logger LOGGER = Logger.getLogger(AdminServiceImpl.class);
 
     @Override
@@ -135,7 +132,7 @@ public class AdminServiceImpl implements AdminService {
             if (passwordEncoder.matches(adminDTO.getPassword(), admin.getPassword())) {
                 adminDTO = modelMapper.map(admin, AdminDTO.class);
                 adminDTO.setPassword(null);
-                String jwt = jwtAuthenticator.createJWT(admin.getUserName(), ISSUER, SUBJECT, System.currentTimeMillis());
+                String jwt = JWTAuthenticator.createJWT(admin.getUserName(), ISSUER, SUBJECT, System.currentTimeMillis());
 
                 return new CommonResponse<>(true, new LoginTokenResponse(adminDTO, jwt));
             }

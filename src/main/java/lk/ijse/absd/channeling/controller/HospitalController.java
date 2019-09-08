@@ -1,12 +1,8 @@
 package lk.ijse.absd.channeling.controller;
 
-import io.jsonwebtoken.Claims;
-import lk.ijse.absd.channeling.configurations.security.JWTAuthenticator;
 import lk.ijse.absd.channeling.dto.HospitalDTO;
-import lk.ijse.absd.channeling.dto.util.CommonResponse;
 import lk.ijse.absd.channeling.service.HospitalService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,16 +15,8 @@ public class HospitalController {
     @Autowired
     private HospitalService hospitalService;
 
-    @Autowired
-    private JWTAuthenticator jwtAuthenticator;
-
     @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity getAllHospitals(@RequestHeader("Authorization") String token) {
-        try {
-            Claims claims = jwtAuthenticator.decodeJWT(token);
-        } catch (Exception e) {
-            return new ResponseEntity<>(new CommonResponse<>(false, "Invalid token!"), HttpStatus.UNAUTHORIZED);
-        }
         return ResponseEntity.ok(hospitalService.getAll());
     }
 
