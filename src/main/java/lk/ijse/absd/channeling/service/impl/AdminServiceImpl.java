@@ -1,7 +1,9 @@
 package lk.ijse.absd.channeling.service.impl;
 
+import lk.ijse.absd.channeling.configurations.security.JWTAuthenticator;
 import lk.ijse.absd.channeling.dto.AdminDTO;
 import lk.ijse.absd.channeling.dto.util.CommonResponse;
+import lk.ijse.absd.channeling.dto.util.LoginTokenResponse;
 import lk.ijse.absd.channeling.entity.Admin;
 import lk.ijse.absd.channeling.repository.AdminRepository;
 import lk.ijse.absd.channeling.service.AdminService;
@@ -16,6 +18,8 @@ import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Optional;
 
+import static lk.ijse.absd.channeling.configurations.security.JWTConstants.ISSUER;
+import static lk.ijse.absd.channeling.configurations.security.JWTConstants.SUBJECT;
 import static lk.ijse.absd.channeling.util.Constants.COMMONERRORMESSAGE;
 
 @Service
@@ -29,6 +33,9 @@ public class AdminServiceImpl implements AdminService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private JWTAuthenticator jwtAuthenticator;
 
     private static final Logger LOGGER = Logger.getLogger(AdminServiceImpl.class);
 
@@ -119,7 +126,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public CommonResponse<AdminDTO> login(AdminDTO adminDTO) {
+    public CommonResponse<LoginTokenResponse> login(AdminDTO adminDTO) {
         try {
             Admin admin = adminRepository.findByUserName(adminDTO.getUserName());
             if (admin == null) {
@@ -128,7 +135,9 @@ public class AdminServiceImpl implements AdminService {
             if (passwordEncoder.matches(adminDTO.getPassword(), admin.getPassword())) {
                 adminDTO = modelMapper.map(admin, AdminDTO.class);
                 adminDTO.setPassword(null);
-                return new CommonResponse<>(true, adminDTO);
+                String jwt = jwtAuthenticator.createJWT(admin.getUserName(), ISSUER, SUBJECT, System.currentTimeMillis());
+
+                return new CommonResponse<>(true, new LoginTokenResponse(adminDTO, jwt));
             }
             return new CommonResponse<>(false, "Incorrect Password!");
         } catch (Exception e) {

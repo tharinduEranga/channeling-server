@@ -1,5 +1,6 @@
 package lk.ijse.absd.channeling.configurations;
 
+import lk.ijse.absd.channeling.configurations.security.JWTAuthenticator;
 import lk.ijse.absd.channeling.util.SMSHandler;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
@@ -24,5 +25,11 @@ public class LibConfig {
     public SMSHandler smsHandler() {
         return new SMSHandler();
     }
+
+    @Bean
+    public JWTAuthenticator jwtAuthenticator() {
+        return new JWTAuthenticator();
+    }
+
 }
 
