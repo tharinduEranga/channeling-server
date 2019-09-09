@@ -55,4 +55,9 @@ public class AppointmentsController {
         return ResponseEntity.ok(appointmentsService.getFutureAppointments());
     }
 
+    @GetMapping(value = "/monthwise/count/{year}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity getMonthWiseByYear(@PathVariable("year") int year) {
+        return ResponseEntity.ok(appointmentsService.getAppointmentsMonthWise(year));
+    }
+
 }

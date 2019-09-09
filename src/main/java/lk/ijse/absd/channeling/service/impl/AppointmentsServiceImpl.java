@@ -2,6 +2,7 @@ package lk.ijse.absd.channeling.service.impl;
 
 import lk.ijse.absd.channeling.dto.AppointmentsDTO;
 import lk.ijse.absd.channeling.dto.DoctorDTO;
+import lk.ijse.absd.channeling.dto.query.AppointmestsByMonth;
 import lk.ijse.absd.channeling.dto.util.CommonResponse;
 import lk.ijse.absd.channeling.entity.Appointments;
 import lk.ijse.absd.channeling.entity.Doc_days;
@@ -184,4 +185,18 @@ public class AppointmentsServiceImpl implements AppointmentsService {
             return new CommonResponse<>(false, COMMONERRORMESSAGE + e.getMessage());
         }
     }
+
+    @Override
+    public CommonResponse<List<AppointmestsByMonth>> getAppointmentsMonthWise(int year) {
+        try {
+            List<AppointmestsByMonth> monthWiseByYear = appointmentsRepository.getAppointmentsMonthWiseByYear(year);
+            System.out.println(monthWiseByYear);
+            return new CommonResponse<>(true, monthWiseByYear);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new CommonResponse<>(false, COMMONERRORMESSAGE + e.getMessage());
+        }
+    }
+
+
 }
